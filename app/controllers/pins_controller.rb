@@ -21,7 +21,7 @@ class PinsController < ApplicationController
     @pin = current_user.pins.build(pin_params)
 
     respond_to do |format|
-      if @pin.save
+      if @pin.save  && verify_recaptcha(:model => @pin, :message => "Oh! It's error with reCAPTCHA!") 
         format.html { redirect_to @pin, notice: 'Pin was successfully created.' }
         format.json { render :show, status: :created, location: @pin }
       else
