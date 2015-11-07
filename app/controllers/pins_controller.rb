@@ -33,7 +33,7 @@ class PinsController < ApplicationController
 
   def update
     respond_to do |format|
-      if @pin.update(pin_params)
+      if @pin.update(pin_params) && verify_recaptcha(:model => @pin, :message => "Oh! It's error with reCAPTCHA!")
         format.html { redirect_to @pin, notice: 'Pin was successfully updated.' }
         format.json { render :show, status: :ok, location: @pin }
       else

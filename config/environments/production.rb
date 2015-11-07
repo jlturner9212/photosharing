@@ -78,7 +78,15 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
 
   # TODO: set to host for sendgrid
-  config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+  config.action_mailer.default_url_options = { :host => :website }
+  ActionMailer::Base.smtp_settings = {
+    :address        => "smtp.sendgrid.net",
+    :port           => "25",
+    :authentication => :plain,
+    :user_name      => ENV['SENDGRID_USERNAME'],
+    :password       => ENV['SENDGRID_PASSWORD']
+    
+  }
 
   config.paperclip_defaults = {
   :storage => :s3,
